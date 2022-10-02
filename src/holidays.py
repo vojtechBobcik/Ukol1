@@ -17,12 +17,11 @@ class Graph:
 
     def checkNodeInGraph(self, node):
         for x in self.graphNodes:
+            # print(x.nodeName + " - " + node)
             if x.nodeName == node:
                 return True
             else:
                 return False
-                
-    
 
 class Node:
     def __init__(self,name) -> None:
@@ -47,6 +46,9 @@ class Edge:
         self.edgeFrom = edgeFrom
         self.edgeTo =edgeTo
 
+def checkNodeInList(node, list):
+    if 
+
 g = Graph()
 nodes = []
 
@@ -61,7 +63,7 @@ if groups:
 for x in nodes:
     g.graphNodes.append(Node(x))
 
-seznamDestinaci=[]
+seznamNavstivenychDestinaci=set()
 # Cteni vstupniho seznamu hran
 for line in sys.stdin:
     #precteni nazvu linky
@@ -70,22 +72,9 @@ for line in sys.stdin:
     #oseknutí mezery a dvojtečky zepředu a znaku konce radku zezadu
     destinace = destinace[1][2:-2]
     edgeParts = re.split(r"\s\-\>\s", destinace)
-    seznamDestinaci.append(edgeParts)
+    for x in edgeParts:
+        seznamNavstivenychDestinaci.add(x)
 
-for x in seznamDestinaci:
-    for y in x:      
-        g.addNode(y)
+for
 
-nenavstivene=[]
-for x in seznamDestinaci:
-    
-    for y in x:
-        print("---------------------")
-        print(y)
-        print(g.checkNodeInGraph(y))
-        if g.checkNodeInGraph(y):
-            nenavstivene.append(y)
-
-# for x in nenavstivene:
-#     print(x)
 
