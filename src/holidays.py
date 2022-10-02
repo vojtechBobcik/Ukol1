@@ -11,25 +11,22 @@ class Graph:
         self.graphNodes = []
         self.graphEdges = []
 
-    def checkSameEdge(self, edge, listOfEdges):
-        numberOfSameEdges = 0
-        for x in listOfEdges:
-            if x.edgeTo == edge.edgeTo and x.edgeFrom == edge.edgeFrom:
-                numberOfSameEdges+=1
-        return numberOfSameEdges
+    def addNode(self, node):
+        if self.checkNodeInGraph(node):
+            self.graphNodes.append(node)
 
-    def findRedundatEdges(self):
-        redundantEdges = set()
-        for x in self.graphEdges:
-            if(self.checkSameEdge(x, self.graphEdges)>1):
-                redundantEdges.add(x.edgeFrom + " -> " + x.edgeTo)
-        for x in redundantEdges:
-            print(x)
+    def checkNodeInGraph(self, node):
+        for x in self.graphNodes:
+            if x.nodeName == node:
+                return True
+            else:
+                return False
+                
     
 
 class Node:
     def __init__(self,name) -> None:
-        self.nodeName = name   
+        self.nodeName = name
         self.inputEdges = []
         self.outputEdges = []
         self.nodeValue = None
@@ -55,7 +52,7 @@ nodes = []
 
 #precteni radku uzlu
 gr = input()
-groups = re.match(r"^City:\s(.*)$", gr)
+groups = re.match(r"^Places:\s(.*)$", gr)
 if groups:
     nodes = groups.group(1).split(", ")
     nodes[-1] = nodes[-1][:-1]
@@ -64,23 +61,31 @@ if groups:
 for x in nodes:
     g.graphNodes.append(Node(x))
 
-seznamLinek=[]
+seznamDestinaci=[]
 # Cteni vstupniho seznamu hran
 for line in sys.stdin:
     #precteni nazvu linky
-    linka = re.match(r"^(.*)\:\s",line)
-    pripravaHran = line.split(linka.group(1))
+    rok = re.match(r"^(.*)\:\s",line)
+    destinace = line.split(rok.group(1))
     #oseknutí mezery a dvojtečky zepředu a znaku konce radku zezadu
-    pripravaHran = pripravaHran[1][2:-2]
-    edgeParts = re.split(r"\s\-\>\s", pripravaHran)
-    seznamLinek.append(edgeParts)
+    destinace = destinace[1][2:-2]
+    edgeParts = re.split(r"\s\-\>\s", destinace)
+    seznamDestinaci.append(edgeParts)
 
-# naplneni struktury grafu hranama
-for x in seznamLinek:
-    for y in range(len(x)-1):
-        g.graphEdges.append(Edge(x[y],x[y+1]))
+for x in seznamDestinaci:
+    for y in x:      
+        g.addNode(y)
 
-g.findRedundatEdges()
-        
-
+nenavstivene=[]
+for x in seznamDestinaci:
     
+    for y in x:
+        print("---------------------")
+        print(y)
+        print(g.checkNodeInGraph(y))
+        if g.checkNodeInGraph(y):
+            nenavstivene.append(y)
+
+# for x in nenavstivene:
+#     print(x)
+
