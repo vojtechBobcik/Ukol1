@@ -46,9 +46,6 @@ class Edge:
         self.edgeFrom = edgeFrom
         self.edgeTo =edgeTo
 
-def checkNodeInList(node, list):
-    if 
-
 g = Graph()
 nodes = []
 
@@ -58,10 +55,12 @@ groups = re.match(r"^Places:\s(.*)$", gr)
 if groups:
     nodes = groups.group(1).split(", ")
     nodes[-1] = nodes[-1][:-1]
-
+rozdilSetu = set()
 #pridani vsech uzlu ktere jsme nasli v cyklu do objektu graf. Pridavame vsechno najednou na konci cteni.
+#update: pridani do setu
 for x in nodes:
-    g.graphNodes.append(Node(x))
+    #g.graphNodes.append(Node(x))
+    rozdilSetu.add(x)
 
 seznamNavstivenychDestinaci=set()
 # Cteni vstupniho seznamu hran
@@ -75,6 +74,10 @@ for line in sys.stdin:
     for x in edgeParts:
         seznamNavstivenychDestinaci.add(x)
 
-for
+rozdil = rozdilSetu.difference(seznamNavstivenychDestinaci)
+for x in rozdil:
+    print(x)
+
+
 
 

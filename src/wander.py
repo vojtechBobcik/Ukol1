@@ -11,25 +11,22 @@ class Graph:
         self.graphNodes = []
         self.graphEdges = []
 
-    def checkSameEdge(self, edge, listOfEdges):
-        numberOfSameEdges = 0
-        for x in listOfEdges:
-            if x.edgeTo == edge.edgeTo and x.edgeFrom == edge.edgeFrom:
-                numberOfSameEdges+=1
-        return numberOfSameEdges
+    def addNodeToGraph(self, node):
+        if not self.checkNodeInGraph(node):
+            self.graphNodes.append(node)
 
-    def findRedundatEdges(self):
-        redundantEdges = set()
-        for x in self.graphEdges:
-            if(self.checkSameEdge(x, self.graphEdges)>1):
-                redundantEdges.add(x.edgeFrom + " -> " + x.edgeTo)
-        for x in redundantEdges:
-            print(x)
-    
+    def checkNodeInGraph(self, node):
+        for x in self.graphNodes:
+            return x.nodeName == node
+
+    def findEdgeToEdgeLoop(self, nodeSequence):
+        for x in range(len(nodeSequence)-1):
+            if nodeSequence[x] == nodeSequence[x+1]:
+                duplicateNodes.append(nodeSequence[x])
 
 class Node:
     def __init__(self,name) -> None:
-        self.nodeName = name   
+        self.nodeName = name
         self.inputEdges = []
         self.outputEdges = []
         self.nodeValue = None
@@ -40,6 +37,7 @@ class Node:
     def assignOutputEdgeToNode(self, edge):
         self.outputEdges.append(edge)
 
+
 class Edge:
     edgeFrom=None
     edgeTo=None
@@ -49,12 +47,14 @@ class Edge:
         self.edgeFrom = edgeFrom
         self.edgeTo =edgeTo
 
+
 g = Graph()
 nodes = []
+duplicateNodes =[]
 
 #precteni radku uzlu
 gr = input()
-groups = re.match(r"^City:\s(.*)$", gr)
+groups = re.match(r"^Guideposts::\s(.*)$", gr)
 if groups:
     nodes = groups.group(1).split(", ")
     nodes[-1] = nodes[-1][:-1]
@@ -74,11 +74,8 @@ for line in sys.stdin:
     edgeParts = re.split(r"\s\-\>\s", pripravaHran)
     seznamLinek.append(edgeParts)
 
-print(seznamLinek)
-# naplneni struktury grafu hranama
 for x in seznamLinek:
-    for y in range(len(x)-1):
-        g.graphEdges.append(Edge(x[y],x[y+1]))
+    g.findEdgeToEdgeLoop(x)
 
-g.findRedundatEdges()
-        
+for x in duplicateNodes:
+    print(x)
