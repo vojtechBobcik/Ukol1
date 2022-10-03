@@ -12,11 +12,13 @@ class Graph:
         self.graphEdges = []
     
     def isNodeInList(self, node, list):
-        return node.nodeName in list
+        return node.name in list
     def findNodeByName(self, name):
         for node in self.graphNodes:
-            if node.nodeName == name:
+            if node.name == name:
                 return node
+            else:
+                pass
 
 
 class Node:
@@ -55,5 +57,5 @@ for line in sys.stdin:
 for actualNode in g.graphNodes:
     for pointNode in actualNode.outputEdges:
         if not actualNode in pointNode.outputEdges:
-            print(pointNode.nodeName + " -> " + actualNode.nodeName)
+            print(pointNode.name + " -> " + actualNode.name)
     #print(x.nodeName + " - " + repr(x.outputEdges))
