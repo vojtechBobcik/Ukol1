@@ -54,28 +54,26 @@ duplicateNodes =[]
 
 #precteni radku uzlu
 gr = input()
-groups = re.match(r"^Guideposts::\s(.*)$", gr)
+groups = re.match(r"^Employ:\s(.*)$", gr)
 if groups:
     nodes = groups.group(1).split(", ")
     nodes[-1] = nodes[-1][:-1]
 
+print(repr(nodes))
 #pridani vsech uzlu ktere jsme nasli v cyklu do objektu graf. Pridavame vsechno najednou na konci cteni.
 for x in nodes:
     g.graphNodes.append(Node(x))
 
-checkpointy=[]
+
+projectGroups=[]
 # Cteni vstupniho seznamu uzlu
 for line in sys.stdin:
     #precteni nazvu checkpointu
     checkpointy = re.match(r"^(.*)\:\s",line)
-    pripravaCheckpointu = line.split(checkpointy.group(1))
+    pripravaNodu = line.split(checkpointy.group(1))
     #oseknutí mezery a dvojtečky zepředu a znaku konce radku zezadu
-    pripravaCheckpointu = pripravaCheckpointu[1][2:-2]
-    edgeParts = re.split(r"\s\-\>\s", pripravaCheckpointu)
-    checkpointy.append(edgeParts)
-
-for x in checkpointy:
-    g.findEdgeToEdgeLoop(x)
-
-for x in duplicateNodes:
-    print(x)
+    pripravaNodu = pripravaNodu[1][2:-2]
+    peopleOnProject = re.split(r"\s\-\>\s", pripravaNodu)
+    projectGroups.append(peopleOnProject)
+print(repr(projectGroups))
+    
