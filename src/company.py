@@ -10,19 +10,30 @@ class Graph:
     def __init__(self) -> None:
         self.graphNodes = []
         self.graphEdges = []
+    
+    def findNodeInList(self, node, list):
+        return node.nodeName in list
 
-    def addNodeToGraph(self, node):
-        if not self.checkNodeInGraph(node):
-            self.graphNodes.append(node)
+    sadySpolupracovniku = []
+    def kontrolaSpoluprace(self, projekty):
+        
+        for zkoumany in self.graphNodes:
+            spolupracovali = set()
+            print("zkoumany: " + zkoumany.nodeName)
+            for pracovniciProjektu in projekty:
+                print("pracovnici na projektu: " + repr(pracovniciProjektu))
+                if self.findNodeInList(zkoumany,pracovniciProjektu):
+                    for pracovnik in pracovniciProjektu:
+                        spolupracovali.add(pracovnik)
+            print("pocet spolupracovniku: " + repr(len(spolupracovali)))
+            if len(spolupracovali) != len(self.graphNodes):
+                print("False")
+                return False
+                       
+        print("True")
+        return True
 
-    def checkNodeInGraph(self, node):
-        for x in self.graphNodes:
-            return x.nodeName == node
-
-    def findEdgeToEdgeLoop(self, nodeSequence):
-        for x in range(len(nodeSequence)-1):
-            if nodeSequence[x] == nodeSequence[x+1]:
-                duplicateNodes.append(nodeSequence[x])
+        
 
 class Node:
     def __init__(self,name) -> None:
@@ -47,33 +58,40 @@ class Edge:
         self.edgeFrom = edgeFrom
         self.edgeTo =edgeTo
 
-
 g = Graph()
 nodes = []
-duplicateNodes =[]
 
 #precteni radku uzlu
 gr = input()
-groups = re.match(r"^Employ:\s(.*)$", gr)
+groups = re.match(r"^Employ\:(.*)$", gr)
 if groups:
     nodes = groups.group(1).split(", ")
     nodes[-1] = nodes[-1][:-1]
 
-print(repr(nodes))
-#pridani vsech uzlu ktere jsme nasli v cyklu do objektu graf. Pridavame vsechno najednou na konci cteni.
 for x in nodes:
-    g.graphNodes.append(Node(x))
+    stripedNodeName=x.strip()
+    g.graphNodes.append(Node(stripedNodeName))
+    
+
+#pridani vsech uzlu ktere jsme nasli v cyklu do objektu graf. Pridavame vsechno najednou na konci cteni.
+#update: pridani do setu
 
 
-projectGroups=[]
-# Cteni vstupniho seznamu uzlu
+pracovniciNaProjektu = []
+# Cteni vstupniho seznamu hran
 for line in sys.stdin:
-    #precteni nazvu checkpointu
-    checkpointy = re.match(r"^(.*)\:\s",line)
-    pripravaNodu = line.split(checkpointy.group(1))
+    #precteni nazvu linky
+    projekt = re.match(r"^(.*)\:\s",line)
+    pracovnikNaProjektu = line.split(projekt.group(1))
     #oseknutí mezery a dvojtečky zepředu a znaku konce radku zezadu
-    pripravaNodu = pripravaNodu[1][2:-2]
-    peopleOnProject = re.split(r"\s\-\>\s", pripravaNodu)
-    projectGroups.append(peopleOnProject)
-print(repr(projectGroups))
+    pracovnikNaProjektu = pracovnikNaProjektu[1][2:-2]
+    edgeParts = re.split(r"\,\s", pracovnikNaProjektu)
+    pracovniciNaProjektu.append(edgeParts)
+
+g.kontrolaSpoluprace(pracovniciNaProjektu)
+
+
+
+
+    
     
