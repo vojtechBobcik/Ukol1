@@ -65,8 +65,8 @@ checkpointy=[]
 # Cteni vstupniho seznamu uzlu
 for line in sys.stdin:
     #precteni nazvu checkpointu
-    checkpointy = re.match(r"^(.*)\:\s",line)
-    pripravaCheckpointu = line.split(checkpointy.group(1))
+    matchResult = re.match(r"^(.*)\:\s",line)
+    pripravaCheckpointu = line.split(matchResult.group(1))
     #oseknutí mezery a dvojtečky zepředu a znaku konce radku zezadu
     pripravaCheckpointu = pripravaCheckpointu[1][2:-2]
     edgeParts = re.split(r"\s\-\>\s", pripravaCheckpointu)
