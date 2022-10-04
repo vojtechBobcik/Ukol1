@@ -92,9 +92,9 @@ for node in h.graphNodes:
     for edge in node.outputEdges:
         tmp = g.findNodeByNameInLowerCase(node.name)
         if tmp is not None :
-            print("taduy/"+ node.name + " -> " + edge.name)
+            #print("taduy/"+ node.name + " -> " + edge.name)
             if h.isNodeWithNameInListToLower(edge.name,tmp.outputEdges):
-                print("SNOFNAIF")
+                #print("SNOFNAIF")
                 continue
         else:
             print(node.name + " -> " + edge.name)

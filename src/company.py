@@ -17,18 +17,18 @@ class Graph:
         
         for zkoumany in self.graphNodes:
             spolupracovali = set()
-            print("zkoumany: " + zkoumany.nodeName)
+            #print("zkoumany: " + zkoumany.nodeName)
             for pracovniciProjektu in projekty:
-                print("pracovnici na projektu: " + repr(pracovniciProjektu))
+                #print("pracovnici na projektu: " + repr(pracovniciProjektu))
                 if self.findNodeInList(zkoumany,pracovniciProjektu):
                     for pracovnik in pracovniciProjektu:
                         spolupracovali.add(pracovnik)
-            print("pocet spolupracovniku: " + repr(len(spolupracovali)))
+            #print("pocet spolupracovniku: " + repr(len(spolupracovali)))
             if len(spolupracovali) != len(self.graphNodes):
-                print("False")
+                #print("False")
                 return False
                        
-        print("True")
+        #print("True")
         return True
 
         
@@ -86,7 +86,7 @@ for line in sys.stdin:
     edgeParts = re.split(r"\,\s", pracovnikNaProjektu)
     pracovniciNaProjektu.append(edgeParts)
 
-g.kontrolaSpoluprace(pracovniciNaProjektu)
+print(g.kontrolaSpoluprace(pracovniciNaProjektu))
 
 
 
