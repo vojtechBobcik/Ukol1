@@ -3,11 +3,10 @@ from os import link
 from platform import node
 import sys
 import re
-from tokenize import String
-from typing import List
+
 
 class Graph:
-    def __init__(self) -> None:
+    def __init__(self):
         self.graphNodes = []
         self.graphEdges = []
     
@@ -20,9 +19,8 @@ class Graph:
             else:
                 pass
 
-
 class Node:
-    def __init__(self,name) -> None:
+    def __init__(self,name):
         self.name = name
         self.outputEdges = []
         self.inputEdges = []

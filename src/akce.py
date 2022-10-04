@@ -1,11 +1,9 @@
-from platform import node
 import sys
 import re
-from tokenize import String
-from typing import List
+
 
 class Node:
-    def __init__(self,name) -> None:
+    def __init__(self,name):
         self.nodeName = name
         self.inputEdges = []
         self.outputEdges = []
@@ -23,12 +21,12 @@ class Edge:
     edgeTo=None
     value=None
 
-    def __init__(self, edgeFrom, edgeTo) -> None:
+    def __init__(self, edgeFrom, edgeTo):
         self.edgeFrom = edgeFrom
         self.edgeTo =edgeTo
 
 class Graph:
-    def __init__(self) -> None:
+    def __init__(self):
         self.graphNodes = []
         self.graphEdges = []
     

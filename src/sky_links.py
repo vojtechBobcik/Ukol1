@@ -3,11 +3,10 @@ from os import link
 from platform import node
 import sys
 import re
-from tokenize import String
-from typing import List
+
 
 class Graph:
-    def __init__(self) -> None:
+    def __init__(self):
         self.graphNodes = []
         self.graphEdges = []
 
@@ -28,7 +27,7 @@ class Graph:
     
 
 class Node:
-    def __init__(self,name) -> None:
+    def __init__(self,name):
         self.nodeName = name   
         self.inputEdges = []
         self.outputEdges = []
@@ -45,7 +44,7 @@ class Edge:
     edgeTo=None
     value=None
 
-    def __init__(self, edgeFrom, edgeTo) -> None:
+    def __init__(self, edgeFrom, edgeTo):
         self.edgeFrom = edgeFrom
         self.edgeTo =edgeTo
 
@@ -74,7 +73,7 @@ for line in sys.stdin:
     edgeParts = re.split(r"\s\-\>\s", pripravaHran)
     seznamLinek.append(edgeParts)
 
-print(seznamLinek)
+
 # naplneni struktury grafu hranama
 for x in seznamLinek:
     for y in range(len(x)-1):
