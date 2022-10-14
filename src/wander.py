@@ -51,19 +51,32 @@ nodes = []
 duplicateNodes =[]
 
 #precteni radku uzlu
-gr = input()
-groups = re.match(r"^Guideposts::\s(.*)$", gr)
-if groups:
-    nodes = groups.group(1).split(", ")
-    nodes[-1] = nodes[-1][:-1]
+# gr = input()
+# groups = re.match(r"^Guideposts::\s(.*)$", gr)
+# if groups:
+#     nodes = groups.group(1).split(", ")
+#     nodes[-1] = nodes[-1][:-1]
 
-#pridani vsech uzlu ktere jsme nasli v cyklu do objektu graf. Pridavame vsechno najednou na konci cteni.
-for x in nodes:
-    g.graphNodes.append(Node(x))
+# #pridani vsech uzlu ktere jsme nasli v cyklu do objektu graf. Pridavame vsechno najednou na konci cteni.
+# for x in nodes:
+#     g.graphNodes.append(Node(x))
 
 checkpointy=[]
+i = True
 # Cteni vstupniho seznamu uzlu
 for line in sys.stdin:
+    if i:
+        groups = re.match(r"^Guideposts::\s(.*)$", line)
+        if groups:
+            nodes = groups.group(1).split(", ")
+            nodes[-1] = nodes[-1][:-1]
+
+        #pridani vsech uzlu ktere jsme nasli v cyklu do objektu graf. Pridavame vsechno najednou na konci cteni.
+        for x in nodes:
+            g.graphNodes.append(Node(x))
+        i = False
+        continue
+
     #precteni nazvu checkpointu
     matchResult = re.match(r"^(.*)\:\s",line)
     pripravaCheckpointu = line.split(matchResult.group(1))
